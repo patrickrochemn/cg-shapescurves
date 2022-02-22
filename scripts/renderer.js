@@ -72,7 +72,7 @@ class Renderer {
 
     // ctx:          canvas context
     drawSlide1(ctx) {
-
+        this.drawCircle(({x:250, y:250}), 200, [0, 255, 0, 255], ctx);
     }
 
     // ctx:          canvas context
@@ -92,12 +92,7 @@ class Renderer {
     drawRectangle(left_bottom, right_top, color, ctx) {
         var left_top = ({x:left_bottom.x, y:right_top.y});
         var right_bottom = ({x:right_top.x, y:left_bottom.y});
-        /*
-        console.log(left_bottom);
-        console.log(left_top);
-        console.log(right_top);
-        console.log(right_bottom);
-        */
+
         // vertices: (x0, y0), (x0, y1), (x1, y1), (x1, y0)
         // lines: [(x0, y0), (x0, y1)], [(x0, y1), (x1, y1)], [(x1, y1), (x1, y0)], [(x0, y0), (x1, y0)]
         //                  left                top                     right               bottom
@@ -106,59 +101,56 @@ class Renderer {
         this.drawLine(right_bottom, right_top,[0, 255, 0, 255], ctx);
         this.drawLine(left_bottom, right_bottom,[0, 255, 0, 255], ctx);
         if(this.show_points) {
+
             // bottom left
-
-            // left
-            this.drawLine({x:left_bottom.x - 5, y:left_bottom.y - 5}, {x:left_bottom.x - 5, y:left_bottom.y + 5}, [0, 0, 255, 255], ctx);
-            // top
-            this.drawLine({x:left_bottom.x - 5, y:left_bottom.y + 5}, {x:left_bottom.x + 5, y:left_bottom.y + 5}, [0, 0, 255, 255], ctx);
-            // right
-            this.drawLine({x:left_bottom.x + 5, y:left_bottom.y + 5}, {x:left_bottom.x + 5, y:left_bottom.y - 5}, [0, 0, 255, 255], ctx);
-            // bottom
-            this.drawLine({x:left_bottom.x - 5, y:left_bottom.y - 5}, {x:left_bottom.x + 5, y:left_bottom.y - 5}, [0, 0, 255, 255], ctx);
-
+            this.highlightPoint(left_bottom, [0, 0, 255, 255], ctx);
 
             // top left
-
-            // left
-            this.drawLine({x:left_top.x - 5, y:left_top.y - 5}, {x:left_top.x - 5, y:left_top.y + 5}, [0, 0, 255, 255], ctx);
-            // top
-            this.drawLine({x:left_top.x - 5, y:left_top.y + 5}, {x:left_top.x + 5, y:left_top.y + 5}, [0, 0, 255, 255], ctx);
-            // right
-            this.drawLine({x:left_top.x + 5, y:left_top.y + 5}, {x:left_top.x + 5, y:left_top.y - 5}, [0, 0, 255, 255], ctx);
-            // bottom
-            this.drawLine({x:left_top.x - 5, y:left_top.y - 5}, {x:left_top.x + 5, y:left_top.y - 5}, [0, 0, 255, 255], ctx);
+            this.highlightPoint(left_top, [0, 0, 255, 255], ctx);
+            
 
             // top right
-
-            // left
-            this.drawLine({x:right_top.x - 5, y:right_top.y - 5}, {x:right_top.x - 5, y:right_top.y + 5}, [0, 0, 255, 255], ctx);
-            // top
-            this.drawLine({x:right_top.x - 5, y:right_top.y + 5}, {x:right_top.x + 5, y:right_top.y + 5}, [0, 0, 255, 255], ctx);
-            // right
-            this.drawLine({x:right_top.x + 5, y:right_top.y + 5}, {x:right_top.x + 5, y:right_top.y - 5}, [0, 0, 255, 255], ctx);
-            // bottom
-            this.drawLine({x:right_top.x - 5, y:right_top.y - 5}, {x:right_top.x + 5, y:right_top.y - 5}, [0, 0, 255, 255], ctx);
+            this.highlightPoint(right_top, [0, 0, 255, 255], ctx);
 
             // bottom right
-
-            // left
-            this.drawLine({x:right_bottom.x - 5, y:right_bottom.y - 5}, {x:right_bottom.x - 5, y:right_bottom.y + 5}, [0, 0, 255, 255], ctx);
-            // top
-            this.drawLine({x:right_bottom.x - 5, y:right_bottom.y + 5}, {x:right_bottom.x + 5, y:right_bottom.y + 5}, [0, 0, 255, 255], ctx);
-            // right
-            this.drawLine({x:right_bottom.x + 5, y:right_bottom.y + 5}, {x:right_bottom.x + 5, y:right_bottom.y - 5}, [0, 0, 255, 255], ctx);
-            // bottom
-            this.drawLine({x:right_bottom.x - 5, y:right_bottom.y - 5}, {x:right_bottom.x + 5, y:right_bottom.y - 5}, [0, 0, 255, 255], ctx);
+            this.highlightPoint(right_bottom, [0, 0, 255, 255], ctx);
         }
     }
+
+    // center:       object ({x: __, y: __})
+    // color:        array of int [R, G, B, A]
+    // ctx:          canvas context
+    highlightPoint(center, color, ctx) {
+        // left
+        this.drawLine({x:center.x - 5, y:center.y - 5}, {x:center.x - 5, y:center.y + 5}, color, ctx);
+        // top
+        this.drawLine({x:center.x - 5, y:center.y + 5}, {x:center.x + 5, y:center.y + 5}, color, ctx);
+        // right
+        this.drawLine({x:center.x + 5, y:center.y + 5}, {x:center.x + 5, y:center.y - 5}, color, ctx);
+        // bottom
+        this.drawLine({x:center.x - 5, y:center.y - 5}, {x:center.x + 5, y:center.y - 5}, color, ctx);
+    }
+
 
     // center:       object ({x: __, y: __})
     // radius:       int
     // color:        array of int [R, G, B, A]
     // ctx:          canvas context
     drawCircle(center, radius, color, ctx) {
-        
+        var numSides = this.num_curve_sections; // number of sides in polygon
+        var interiorAngle = 2 * Math.PI/numSides; // interior angle of polygon
+        var xCoords = [];
+        var yCoords = [];
+        var coords = [];
+        for(var i = 0; i < numSides; i++) {
+            xCoords[i] = radius * Math.cos(2 * Math.PI * numSides * i / numSides) + center.x;
+            yCoords[i] = radius * Math.sin(2 * Math.PI * numSides * i / numSides) + center.y;
+            var xCoord = radius * Math.cos(2 * Math.PI * numSides * i / numSides) + center.x;
+            var yCoord = radius * Math.sin(2 * Math.PI * numSides * i / numSides) + center.y;
+            coords[i] = ({x:xCoord, y:yCoord});
+        }
+        console.log(coords);
+
     }
 
     // pt0:          object ({x: __, y: __})

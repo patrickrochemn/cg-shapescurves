@@ -186,12 +186,12 @@ class Renderer {
         var t = 0.0;
         for(let i = 0; i < sections; i++) {
             console.log("t: " + t);
+            console.log("i: " + i);
 
-            console.log(i + ": ");
             var xCoord = (1 - t)^3 * pt0.x + 3 * (1 - t)^2 * t * pt1.x + 3 * (1 - t) * t^2 * pt2.x + t^3 * pt3.x;
-            console.log(xCoord + ": ");
+            console.log("x: " + x);
             var yCoord = (1 - t)^3 * pt0.y + 3 * (1 - t)^2 * t * pt1.y + 3 * (1 - t) * t^2 * pt2.y + t^3 * pt3.y;
-            console.log(yCoord + ": ");
+            console.log("y: " + y);
             coords[i] = ({x:xCoord, y:yCoord});
             t = t + (1.0 / sections);
         }

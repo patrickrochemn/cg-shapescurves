@@ -68,19 +68,19 @@ class Renderer {
     // ctx:          canvas context
     drawSlide0(ctx) {
         // Rectangle
-        this.drawRectangle(({x:100, y:100}), ({x:700, y:500}), [0, 0, 255, 255], ctx);
+        this.drawRectangle({x:100, y:100}, {x:700, y:500}, [0, 0, 255, 255], ctx);
     }
 
     // ctx:          canvas context
     drawSlide1(ctx) {
         // Draw Circle
-        this.drawCircle(({x:250, y:250}), 200, [0, 255, 0, 255], ctx);
+        this.drawCircle(({x:250, y:250}), 200, [0, 0, 255, 255], ctx);
     }
 
     // ctx:          canvas context
     drawSlide2(ctx) {
         // Bezier Curve
-        this.drawBezierCurve();
+        this.drawBezierCurve({x:100, y:100}, {x:200, y:300}, {x:400, y:100}, {x:500, y:500}, [255, 0, 0, 255], ctx);
     }
 
     // ctx:          canvas context
@@ -184,12 +184,24 @@ class Renderer {
         var yCoords = [];
         var coords = [];
         var t = 0.0;
-        for(let i = 0; i <= sections; i++) {
+        for(let i = 0; i < sections; i++) {
+            console.log("t: " + t);
+
+            console.log(i + ": ");
             var xCoord = (1 - t)^3 * pt0.x + 3 * (1 - t)^2 * t * pt1.x + 3 * (1 - t) * t^2 * pt2.x + t^3 * pt3.x;
+            console.log(xCoord + ": ");
             var yCoord = (1 - t)^3 * pt0.y + 3 * (1 - t)^2 * t * pt1.y + 3 * (1 - t) * t^2 * pt2.y + t^3 * pt3.y;
+            console.log(yCoord + ": ");
             coords[i] = ({x:xCoord, y:yCoord});
             t = t + (1.0 / sections);
         }
+        console.log("COORDINATES:");
+        console.log(coords);
+        // draw lines between all the coordinates going around the circle
+        for(var i = 0; i < coords.length - 1; i++) {
+            this.drawLine(coords[i], coords[i+1], color, ctx);
+        }
+        this.drawLine({x:75, y:75}, {x:400, y:300}, [0, 255, 0, 255], ctx);
     }
 
     // pt0:          object ({x: __, y: __})

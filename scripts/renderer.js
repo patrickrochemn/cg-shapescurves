@@ -67,22 +67,25 @@ class Renderer {
 
     // ctx:          canvas context
     drawSlide0(ctx) {
-        this.drawRectangle(({x:100, y:100}), ({x:500, y:500}), [0, 0, 255, 255], ctx);
+        // Rectangle
+        this.drawRectangle(({x:100, y:100}), ({x:700, y:500}), [0, 0, 255, 255], ctx);
     }
 
     // ctx:          canvas context
     drawSlide1(ctx) {
+        // Draw Circle
         this.drawCircle(({x:250, y:250}), 200, [0, 255, 0, 255], ctx);
     }
 
     // ctx:          canvas context
     drawSlide2(ctx) {
-
+        // Bezier Curve
+        this.drawBezierCurve();
     }
 
     // ctx:          canvas context
     drawSlide3(ctx) {
-
+        // Name
     }
 
     // left_bottom:  object ({x: __, y: __})
@@ -139,18 +142,31 @@ class Renderer {
     drawCircle(center, radius, color, ctx) {
         var numSides = this.num_curve_sections; // number of sides in polygon
         var interiorAngle = 2 * Math.PI/numSides; // interior angle of polygon
-        var xCoords = [];
-        var yCoords = [];
-        var coords = [];
-        for(var i = 0; i < numSides; i++) {
-            xCoords[i] = radius * Math.cos(2 * Math.PI * numSides * i / numSides) + center.x;
-            yCoords[i] = radius * Math.sin(2 * Math.PI * numSides * i / numSides) + center.y;
-            var xCoord = radius * Math.cos(2 * Math.PI * numSides * i / numSides) + center.x;
-            var yCoord = radius * Math.sin(2 * Math.PI * numSides * i / numSides) + center.y;
+        var currentAngle = 0;
+        var xCoords = []; // array of x coordinates
+        var yCoords = []; // array of y coordinates
+        var coords = []; // array of coordinate pairs
+        
+        // loop through and calculate the coordinates of the polygon based on the number of sides
+        for(let i = 0; i <= numSides; i++) {
+            xCoords[i] = radius * Math.cos(currentAngle) + center.x;
+            yCoords[i] = radius * Math.sin(currentAngle) + center.y;
+            var xCoord = radius * Math.cos(currentAngle) + center.x;
+            var yCoord = radius * Math.sin(currentAngle) + center.y;
             coords[i] = ({x:xCoord, y:yCoord});
+            currentAngle = currentAngle + interiorAngle;
         }
-        console.log(coords);
+        // draw lines between all the coordinates going around the circle
+        for(var i = 0; i < coords.length - 1; i++) {
+            this.drawLine(coords[i], coords[i+1], color, ctx);
+        }
 
+        // highlight points if selected
+        if(this.show_points) {
+            for(let i = 0; i < coords.length; i++) {
+                this.highlightPoint(coords[i], [0, 0, 0, 255], ctx);
+            }
+        }
     }
 
     // pt0:          object ({x: __, y: __})
@@ -160,7 +176,20 @@ class Renderer {
     // color:        array of int [R, G, B, A]
     // ctx:          canvas context
     drawBezierCurve(pt0, pt1, pt2, pt3, color, ctx) {
-        
+        // endpoints: pt0 and pt3
+        // control points: pt1 and pt2
+        // paramaterize such that t=0.0 is starting endpoint and t=1.0 is the ending endpoint
+        var sections = this.num_curve_sections;
+        var xCoords = [];
+        var yCoords = [];
+        var coords = [];
+        var t = 0.0;
+        for(let i = 0; i <= sections; i++) {
+            var xCoord = (1 - t)^3 * pt0.x + 3 * (1 - t)^2 * t * pt1.x + 3 * (1 - t) * t^2 * pt2.x + t^3 * pt3.x;
+            var yCoord = (1 - t)^3 * pt0.y + 3 * (1 - t)^2 * t * pt1.y + 3 * (1 - t) * t^2 * pt2.y + t^3 * pt3.y;
+            coords[i] = ({x:xCoord, y:yCoord});
+            t = t + (1.0 / sections);
+        }
     }
 
     // pt0:          object ({x: __, y: __})

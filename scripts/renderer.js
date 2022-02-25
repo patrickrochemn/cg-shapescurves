@@ -2,19 +2,19 @@
 
 Slides:
     -Slide 0: Rectangle            [x]
-    -Slide 1: Circle               []
-    -Slide 2: Bezier curve         []
+    -Slide 1: Circle               [x]
+    -Slide 2: Bezier curve         [x]
     -Slide 3: Draw your name       []
 
 User controlled Options:
     -Number of sections to divide circles/curves into
-        -Circle            []
-        -Bezier curve      []
+        -Circle            [x]
+        -Bezier curve      [x]
         -Draw your name    []
     -Ability to show / hide points used in drawing routines
         -Rectangle            [x]
-        -Circle               []
-        -Bezier curve         []
+        -Circle               [x]
+        -Bezier curve         [x]
         -Draw your name       []
 
 */

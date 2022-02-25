@@ -4,18 +4,18 @@ Slides:
     -Slide 0: Rectangle            [x]
     -Slide 1: Circle               [x]
     -Slide 2: Bezier curve         [x]
-    -Slide 3: Draw your name       []
+    -Slide 3: Draw your name       [x]
 
 User controlled Options:
     -Number of sections to divide circles/curves into
         -Circle            [x]
         -Bezier curve      [x]
-        -Draw your name    []
+        -Draw your name    [x]
     -Ability to show / hide points used in drawing routines
         -Rectangle            [x]
         -Circle               [x]
         -Bezier curve         [x]
-        -Draw your name       []
+        -Draw your name       [x]
 
 */
 
@@ -101,27 +101,61 @@ class Renderer {
         this.drawLine({x:150, y:350}, {x:220, y:350}, [0, 255, 0, 255], ctx);
 
         // R
-        this.drawLine({x:250, y:250}, {x:250, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:245, y:250}, {x:245, y:330}, [0, 255, 0, 255], ctx);
         this.drawCircle({x:270, y:330}, 25, [255, 0, 0, 255], ctx);
-        this.drawLine({x:270, y:275}, {x:275, y:250}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:270, y:305}, {x:300, y:250}, [0, 255, 0, 255], ctx);
 
         // I
+        this.drawLine({x:325, y:350}, {x:385, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:355, y:250}, {x:355, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:325, y:250}, {x:385, y:250}, [0, 255, 0, 255], ctx);
 
         // C
+        this.drawBezierCurve({x:450, y:250}, {x:400, y:250}, {x:400, y:350}, {x:450, y:350}, [0, 0, 255, 255], ctx);
 
         // K
-
+        this.drawLine({x:490, y:250}, {x:490, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:490, y:300}, {x:520, y:250}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:490, y:300}, {x:520, y:350}, [0, 255, 0, 255], ctx);
 
         // show points from lines
         if(this.show_points) {
-            // A
-            this.highlightPoint({x:100, y:250}, [0, 255, 0, 255], ctx);
-            this.highlightPoint({x:125, y:350}, [0, 255, 0, 255], ctx);
-            this.highlightPoint({x:125, y:350}, [0, 255, 0, 255], ctx);
-            this.highlightPoint({x:150, y:250}, [0, 255, 0, 255], ctx);
-            this.highlightPoint({x:112, y:300}, [0, 255, 0, 255], ctx);
-            this.highlightPoint({x:137, y:300}, [0, 255, 0, 255], ctx);
+            // P
+            // handled by rectangle and bezier curve functions
 
+            // A
+            this.highlightPoint({x:100, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:125, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:125, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:150, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:112, y:300}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:137, y:300}, [0, 255, 255, 255], ctx);
+            //T
+            this.highlightPoint({x:185, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:185, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:150, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:220, y:350}, [0, 255, 255, 255], ctx);
+            // R
+            this.highlightPoint({x:245, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:245, y:330}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:270, y:305}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:300, y:250}, [0, 255, 255, 255], ctx);
+            // I
+            this.highlightPoint({x:325, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:385, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:355, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:355, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:325, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:385, y:250}, [0, 255, 255, 255], ctx);
+            // C
+            // handled by bezier curve function
+
+            // K
+            this.highlightPoint({x:490, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:490, y:350}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:490, y:300}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:520, y:250}, [0, 255, 255, 255], ctx);
+            this.highlightPoint({x:520, y:350}, [0, 255, 255, 255], ctx);
         }
     }
 

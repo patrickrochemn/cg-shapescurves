@@ -74,7 +74,7 @@ class Renderer {
     // ctx:          canvas context
     drawSlide1(ctx) {
         // Draw Circle
-        this.drawCircle(({x:250, y:250}), 200, [0, 0, 255, 255], ctx);
+        this.drawCircle(({x:400, y:300}), 200, [0, 0, 255, 255], ctx);
     }
 
     // ctx:          canvas context
@@ -92,13 +92,18 @@ class Renderer {
         this.drawBezierCurve({x:50, y: 300}, {x:100, y:300}, {x:100, y:350}, {x:50, y:350}, [0, 0, 255, 255], ctx);
 
         // A
-        this.drawLine({x:100, y:250}, {x:125, y:350}, [0, 255, 255, 255], ctx);
-        this.drawLine({x:125, y:350}, {x:150, y:250}, [0, 255, 255, 255], ctx);
-        this.drawLine({x:112, y:300}, {x:137, y:300}, [0, 255, 255, 255], ctx);
+        this.drawLine({x:100, y:250}, {x:125, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:125, y:350}, {x:150, y:250}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:112, y:300}, {x:137, y:300}, [0, 255, 0, 255], ctx);
 
         // T
+        this.drawLine({x:185, y:250}, {x:185, y:350}, [0, 255, 0, 255], ctx);
+        this.drawLine({x:150, y:350}, {x:220, y:350}, [0, 255, 0, 255], ctx);
 
         // R
+        this.drawLine({x:250, y:250}, {x:250, y:350}, [0, 255, 0, 255], ctx);
+        this.drawCircle({x:270, y:330}, 25, [255, 0, 0, 255], ctx);
+        this.drawLine({x:270, y:275}, {x:275, y:250}, [0, 255, 0, 255], ctx);
 
         // I
 

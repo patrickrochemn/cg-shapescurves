@@ -86,6 +86,38 @@ class Renderer {
     // ctx:          canvas context
     drawSlide3(ctx) {
         // Name
+
+        // P
+        this.drawRectangle({x:50, y:250}, {x:50, y:350}, [255, 0, 0, 255], ctx);
+        this.drawBezierCurve({x:50, y: 300}, {x:100, y:300}, {x:100, y:350}, {x:50, y:350}, [0, 0, 255, 255], ctx);
+
+        // A
+        this.drawLine({x:100, y:250}, {x:125, y:350}, [0, 255, 255, 255], ctx);
+        this.drawLine({x:125, y:350}, {x:150, y:250}, [0, 255, 255, 255], ctx);
+        this.drawLine({x:112, y:300}, {x:137, y:300}, [0, 255, 255, 255], ctx);
+
+        // T
+
+        // R
+
+        // I
+
+        // C
+
+        // K
+
+
+        // show points from lines
+        if(this.show_points) {
+            // A
+            this.highlightPoint({x:100, y:250}, [0, 255, 0, 255], ctx);
+            this.highlightPoint({x:125, y:350}, [0, 255, 0, 255], ctx);
+            this.highlightPoint({x:125, y:350}, [0, 255, 0, 255], ctx);
+            this.highlightPoint({x:150, y:250}, [0, 255, 0, 255], ctx);
+            this.highlightPoint({x:112, y:300}, [0, 255, 0, 255], ctx);
+            this.highlightPoint({x:137, y:300}, [0, 255, 0, 255], ctx);
+
+        }
     }
 
     // left_bottom:  object ({x: __, y: __})
@@ -185,18 +217,11 @@ class Renderer {
         var coords = [];
         var t = 0.0;
         for(let i = 0; i <= sections; i++) {
-            console.log("t: " + t);
-            console.log("i: " + i);
-
             var xCoord = (1 - t)**3 * pt0.x + 3 * (1 - t)**2 * t * pt1.x + 3 * (1 - t) * t**2 * pt2.x + t**3 * pt3.x;
-            console.log("x: " + xCoord);
             var yCoord = (1 - t)**3 * pt0.y + 3 * (1 - t)**2 * t * pt1.y + 3 * (1 - t) * t**2 * pt2.y + t**3 * pt3.y;
-            console.log("y: " + yCoord);
             coords[i] = ({x:xCoord, y:yCoord});
             t = t + (1.0 / sections);
         }
-        console.log("COORDINATES:");
-        console.log(coords);
         // draw lines between all the coordinates going around the circle
         for(var i = 0; i < coords.length - 1; i++) {
             this.drawLine(coords[i], coords[i+1], color, ctx);
@@ -208,8 +233,8 @@ class Renderer {
             }
             this.highlightPoint(pt1, [255, 0, 0, 255], ctx);
             this.highlightPoint(pt2, [255, 0, 0, 255], ctx);
-            this.drawLine(pt0, pt1, [100, 100, 100, 100], ctx);
-            this.drawLine(pt2, pt3, [100, 100, 100, 100], ctx);
+            //this.drawLine(pt0, pt1, [100, 100, 100, 100], ctx); // draw tangent line to control pt1
+            //this.drawLine(pt2, pt3, [100, 100, 100, 100], ctx); // draw tangent line to control pt3
         }
     }
 

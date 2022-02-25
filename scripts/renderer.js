@@ -80,7 +80,7 @@ class Renderer {
     // ctx:          canvas context
     drawSlide2(ctx) {
         // Bezier Curve
-        this.drawBezierCurve({x:100, y:100}, {x:200, y:300}, {x:400, y:100}, {x:500, y:500}, [255, 0, 0, 255], ctx);
+        this.drawBezierCurve({x:100, y:100}, {x:200, y:300}, {x:400, y:100}, {x:300, y:400}, [255, 0, 0, 255], ctx);
     }
 
     // ctx:          canvas context
@@ -184,14 +184,14 @@ class Renderer {
         var yCoords = [];
         var coords = [];
         var t = 0.0;
-        for(let i = 0; i < sections; i++) {
+        for(let i = 0; i <= sections; i++) {
             console.log("t: " + t);
             console.log("i: " + i);
 
-            var xCoord = (1 - t)^3 * pt0.x + 3 * (1 - t)^2 * t * pt1.x + 3 * (1 - t) * t^2 * pt2.x + t^3 * pt3.x;
-            console.log("x: " + x);
-            var yCoord = (1 - t)^3 * pt0.y + 3 * (1 - t)^2 * t * pt1.y + 3 * (1 - t) * t^2 * pt2.y + t^3 * pt3.y;
-            console.log("y: " + y);
+            var xCoord = (1 - t)**3 * pt0.x + 3 * (1 - t)**2 * t * pt1.x + 3 * (1 - t) * t**2 * pt2.x + t**3 * pt3.x;
+            console.log("x: " + xCoord);
+            var yCoord = (1 - t)**3 * pt0.y + 3 * (1 - t)**2 * t * pt1.y + 3 * (1 - t) * t**2 * pt2.y + t**3 * pt3.y;
+            console.log("y: " + yCoord);
             coords[i] = ({x:xCoord, y:yCoord});
             t = t + (1.0 / sections);
         }
@@ -201,7 +201,16 @@ class Renderer {
         for(var i = 0; i < coords.length - 1; i++) {
             this.drawLine(coords[i], coords[i+1], color, ctx);
         }
-        this.drawLine({x:75, y:75}, {x:400, y:300}, [0, 255, 0, 255], ctx);
+
+        if(this.show_points) {
+            for(let i = 0; i < coords.length; i++) {
+                this.highlightPoint(coords[i], [0, 0, 0, 255], ctx);
+            }
+            this.highlightPoint(pt1, [255, 0, 0, 255], ctx);
+            this.highlightPoint(pt2, [255, 0, 0, 255], ctx);
+            this.drawLine(pt0, pt1, [100, 100, 100, 100], ctx);
+            this.drawLine(pt2, pt3, [100, 100, 100, 100], ctx);
+        }
     }
 
     // pt0:          object ({x: __, y: __})

@@ -234,7 +234,7 @@ class Renderer {
 
         // highlight points if selected
         if(this.show_points) {
-            for(let i = 0; i < coords.length; i++) {
+            for(let i = 0; i < coords.length - 1; i++) { // coords.length - 1 stops first point from being included twice
                 this.highlightPoint(coords[i], [0, 0, 0, 255], ctx);
             }
         }
@@ -251,16 +251,16 @@ class Renderer {
         // control points: pt1 and pt2
         // paramaterize such that t=0.0 is starting endpoint and t=1.0 is the ending endpoint
         var sections = this.num_curve_sections;
-        var xCoords = [];
-        var yCoords = [];
         var coords = [];
         var t = 0.0;
+
         for(let i = 0; i <= sections; i++) {
             var xCoord = (1 - t)**3 * pt0.x + 3 * (1 - t)**2 * t * pt1.x + 3 * (1 - t) * t**2 * pt2.x + t**3 * pt3.x;
             var yCoord = (1 - t)**3 * pt0.y + 3 * (1 - t)**2 * t * pt1.y + 3 * (1 - t) * t**2 * pt2.y + t**3 * pt3.y;
             coords[i] = ({x:xCoord, y:yCoord});
             t = t + (1.0 / sections);
         }
+
         // draw lines between all the coordinates going around the circle
         for(var i = 0; i < coords.length - 1; i++) {
             this.drawLine(coords[i], coords[i+1], color, ctx);
